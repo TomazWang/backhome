@@ -22,35 +22,25 @@
 <body>
 
 	<div class="container">
-		<div class="header clearfix">
-			<nav>
-				<ul class="nav nav-pills pull-right">
-					<li role="presentation" class="active"><a href="#">Home</a></li>
-					<li role="presentation"><a href="#">About</a></li>
-					<!-- 
-						<li role="presentation"><a href="#">Contact</a></li>
-					-->
-				</ul>
-			</nav>
-			<h3 class="text-muted">Go Home This Week?</h3>
-		</div>
+
+		{% include "includes/general_header.html" %}
 
 		<div class="jumbotron">
 			<h1>請登入</h1>
-			<p class="lead">我們無法確認您的身分，請使用QR code 進入本系統
-				，或是按下下面按鈕使用金鑰登入</p>
+			<p class="lead lead-thin">我們無法確認您的身分</p>
+			<p class="lead ">請使用QR code 進入本系統，或是按下下面按鈕使用金鑰登入</p>
 
-			<div class="container">
-				<p><a class="btn btn-lg btn-success options" href="#" role="button">金鑰登入</a></p>
+				<div class="container">
+					<p><a class="btn btn-lg btn-success options" href="#" role="button">金鑰登入</a></p>
+				</div>
+
 			</div>
 
-		</div>
 
+			<footer class="footer">
+				<p>&copy; TomScope 2015</p>
+			</footer>
 
-		<footer class="footer">
-			<p>&copy; TomScope 2015</p>
-		</footer>
+		</div> <!-- /container -->
 
-	</div> <!-- /container -->
-
-</body>
+	</body>

@@ -24,28 +24,18 @@
 <body>
 
 	<div class="container">
-		<div class="header clearfix">
-			<nav>
-				<ul class="nav nav-pills pull-right">
-					<li role="presentation" class="active"><a href="#">Home</a></li>
-					<li role="presentation"><a href="#">About</a></li>
-					<!-- 
-						<li role="presentation"><a href="#">Contact</a></li>
-					-->
-				</ul>
-			</nav>
-			<h3 class="text-muted">Go Home This Week?</h3>
-		</div>
+		{% include "includes/general_header.html" %}
 
 		<div class="jumbotron">
-			<h1>Hello {{member.name}}</h1>
-			<p class="lead">Are you gonna go home this week?</p>
+			<h1>哈囉! {{member.name}}</h1>
+			<p class="lead">這禮拜要回阿公阿罵家嗎?</p>
 
 			<div class="container">
-				<p><a class="btn btn-lg btn-success options" href="#" role="button">Yes</a></p>
-				<p><a class="btn btn-lg btn-danger options" href="#" role="button">Nope</a></p>
+				<p><a class="btn btn-lg btn-success options" href="#" role="button">要阿當然!! </a></p>
+				<p><a class="btn btn-lg btn-danger options" href="#" role="button">這禮拜不行耶</a></p>
 			</div>
 
+			<p class="lead lead-thin" id="not_me_link"><a>這個人不是我?</a></p>
 		</div>
 
 

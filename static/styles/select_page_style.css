@@ -1,10 +1,27 @@
 /* 思源體 */
+@font-face{
+  font-family: NotoSansHant-Bold;
+  src :url(fonts/NotoSansHant-Bold.otf);
+}
 
+
+
+@font-face{
+  font-family: NotoSansHant-Regular;
+  src :url(fonts/NotoSansHant-Regular.otf);
+}
+
+
+@font-face{
+  font-family: NotoSansHant-Thin;
+  src :url(fonts/NotoSansHant-Thin.otf);
+}
 
 /* Space out content a bit */
 body {
   padding-top: 20px;
   padding-bottom: 20px;
+  font-family: NotoSansHant-Regular;
 
 }
 
@@ -38,7 +55,23 @@ body {
 
 
 .options {
-	width: 30%;
+	min-width: 30%;
+}
+
+
+.jumbotron > h1{
+  font-family: NotoSansHant-Bold;
+}
+
+
+.lead-thin{
+  font-family: NotoSansHant-Thin;
+}
+
+#not_me_link{
+   cursor: pointer;
+   padding-top: 20px;
+   font-size: 120%;
 }
 
 
