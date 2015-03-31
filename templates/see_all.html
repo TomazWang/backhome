@@ -16,32 +16,41 @@
 	<!-- custom style -->
 	<link rel="stylesheet" href="{{STATIC_URL}}styles/select_page_style.css">
 
+	<link rel="stylesheet" href="{{STATIC_URL}}styles/see_all_style.css">
+
 </head>
 <body>
 
 	<div class="container">
 		{% include "includes/general_header.html" %}
 		
-		{% for group in group_list %}
+		{% for group_name,group in groups %}
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h1 class="panel-title">{{ group.name }}</h1>
+				<h1 class="panel-title">{{ group_name }}</h1>
 			</div>
 			<div class="panel-body">
 				<table class="table">
-					<tr>
+					<!--<tr>
 						<th>Name</th>
 						<th>Decisioin</th>
-					</tr>
-					{% for member in group.get_members() %}
+					</tr>-->
+					{% for member,decision in group %}
+
+					{% if decision == "YES" %}
+					<tr class="success">
+					{% elif decision == "NO" %}
+					<tr class="danger">
+					{% else %}
 					<tr>
+					{% endif %}
 						<td>{{ member.name }}</td>
 						<td>
-							{% if member.decision_this_week() == "YES" %}
+							{% if decision == "YES" %}
 							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-							{% elif member.decision_this_week() == "NO" %}
+							{% elif decision == "NO" %}
 							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-							{% eles %}
+							{% else %}
 							<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
 							{% endif %}
 						</td>
