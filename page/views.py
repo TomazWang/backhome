@@ -13,7 +13,7 @@ def select_page(request):
 	# 1. check if login
 	# check POST data
 
-	post_data = request.POST
+	post_data = request.GET
 	member_id = post_data.get('usr_id',str(0))
 	key = post_data.get('key','0')
 
@@ -23,17 +23,20 @@ def select_page(request):
 	if key == "6oHOME0NO7k3yFORpr12e" :
 
 		# 2. pull out member data
-		member = Member.objects.filter(id = member_id)
+		member_list = Member.objects.filter(id = member_id)
 
-		# 3. render into page
-		page = render(
-				request ,
-				'select_page.html',
-				{	
-					'member':member,
-				}
-					)
+		if len(member_list) > 0 :
+			# get a member
+			member = member_list[0]
 
+			# 3. render into page
+			page = render(
+					request ,
+					'select_page.html',
+					{	
+						'member':member,
+					}	
+						)
 
 
 	else :
@@ -41,17 +44,42 @@ def select_page(request):
 	return page
 
 
-def select(request):
+def make_decision(request):
 
-	post_data = request.POST
+	post_data = request.GET
 
-	member_id = post_data.get('member_id',str(0))
-	member = Member.objects.filter(id=member_id)
+	member_id = int(post_data.get('member_id',0))
+	member_list = Member.objects.filter(id = member_id)
 
-	decision = post_data.get('decision','NDY')
+	# default page
+	# page = render(request,'login_page.html')
 
-	decisiton_data = Decision.objects.create(member = member, decision = decision)
+	output = ""
 
-	decisiton_data.save()
+	output+= str("member_id : " + str(member_id) + "<br />")
+	output+= str("member_list : " + str(member_list) + "<br>")
 
-	page = render(request, 'see_all')
+	all_member_list = Member.objects.all()
+
+	output += str(all_member_list)
+
+	# test output
+	return HttpResponse(output)
+
+	for member in member_list:
+		decision = post_data.get('decision','NDY')
+		decisiton_data = Decision.objects.create(member = member, decision = decision)
+		decisiton_data.save()
+
+		# page = render(request, 'see_all.html')
+
+
+def select_member(request):
+
+	# use GET, input member_id = member_id
+	get_data = request.GET
+	member_id = get_data.get('member_id',0)
+	all_member_list = Member.objects.all()
+	member_list = Member.objects.filter(id = member_id)
+
+		

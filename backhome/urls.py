@@ -8,5 +8,6 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'page.views.select_page'),
-    url(r'^select', 'page.views.select'),
+    url(r'^ajax/decision', 'page.views.make_decision'),
+    url(r'^ajax/select_member', 'page.views.select_member'),
 )
