@@ -9,7 +9,8 @@ class Member(models.Model):
 	def __str__(self):
 		return str(self.id) +". "+ self.name
 
-
+	def decision_this_week():
+		pass
 
 
 class Group(models.Model):
@@ -19,6 +20,8 @@ class Group(models.Model):
 	def __str__(self):
 		return self.name
 
+	def get_members():
+		pass
 
 
 

@@ -1,0 +1,56 @@
+<!-- page/see_all.html -->
+<!DOCTYPE html>
+<head>
+	<title>Back Home or NOT </title>
+	<meta charset='utf-8'>
+
+	<!-- import jQuery -->
+	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+
+	<!-- imort boostrap -->
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+	<!-- custom style -->
+	<link rel="stylesheet" href="{{STATIC_URL}}styles/select_page_style.css">
+
+</head>
+<body>
+
+	<div class="container">
+		{% include "includes/general_header.html" %}
+		
+		{% for group in group_list %}
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h1 class="panel-title">{{ group.name }}</h1>
+			</div>
+			<div class="panel-body">
+				<table class="table">
+					<tr>
+						<th>Name</th>
+						<th>Decisioin</th>
+					</tr>
+					{% for member in group.get_members() %}
+					<tr>
+						<td>{{ member.name }}</td>
+						<td>
+							{% if member.decision_this_week() == "YES" %}
+							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+							{% elif member.decision_this_week() == "NO" %}
+							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+							{% eles %}
+							<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+							{% endif %}
+						</td>
+					</tr>
+					{% endfor %}
+
+				</table>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+</body>

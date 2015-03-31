@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from page.models import Member
 from page.models import Group
 from page.models import Decision
+
 # Create your views here.
 
 
@@ -44,42 +45,37 @@ def select_page(request):
 	return page
 
 
-def make_decision(request):
 
-	post_data = request.GET
+def see_all(request):
 
-	member_id = int(post_data.get('member_id',0))
-	member_list = Member.objects.filter(id = member_id)
+	groups = Group.objects.all()
+	page = render(request,'see_all.html',{'group_list':groups})
 
-	# default page
-	# page = render(request,'login_page.html')
-
-	output = ""
-
-	output+= str("member_id : " + str(member_id) + "<br />")
-	output+= str("member_list : " + str(member_list) + "<br>")
-
-	all_member_list = Member.objects.all()
-
-	output += str(all_member_list)
-
-	# test output
-	return HttpResponse(output)
-
-	for member in member_list:
-		decision = post_data.get('decision','NDY')
-		decisiton_data = Decision.objects.create(member = member, decision = decision)
-		decisiton_data.save()
-
-		# page = render(request, 'see_all.html')
+	return page
 
 
-def select_member(request):
 
-	# use GET, input member_id = member_id
-	get_data = request.GET
-	member_id = get_data.get('member_id',0)
-	all_member_list = Member.objects.all()
-	member_list = Member.objects.filter(id = member_id)
+
+
+
+# select member by name key words or id
+def select_member(**kwargs):
+
+	# kwargs : name, id
+	if kwargs is not None :
+
+		member_list = []
+		for name,value in kwargs.items():
+
+			if name == 'id':
+				member_list = Member.objects.filter(id = value)
+				return member_list
+
+			elif name == 'name':
+				member_list = Member.objects.filter(name__contains = value)
+				return member_list
+
+
+
 
 		
