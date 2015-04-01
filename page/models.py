@@ -8,6 +8,7 @@ class Member(models.Model):
 	generation = models.IntegerField(default = 1)
 	gender = models.BooleanField(default = True)
 	seniority = models.IntegerField(default = 1)
+	nickName = models.CharField(max_length = 10)
 
 	def __str__(self):
 		return str(self.id) +". "+ self.name
@@ -31,21 +32,9 @@ class Group(models.Model):
 
 class Decision(models.Model):
 
-	YES = 'YES'
-	NO = 'NO'
-	NOT_SURE = 'NS'
-	NOT_DECIDED_YET = 'NDY'
-
-	DECISION_CHOICES = {
-		(YES,'YES'),
-		(NO,'NO'),
-		(NOT_SURE,'NOT_SURE'),
-		(NOT_DECIDED_YET,'NOT_DECIDED_YET'),
-	}
-
 	member = models.ForeignKey('Member',related_name='decisions')
 	create_at = models.DateTimeField(auto_now_add = True)
-	decision = models.CharField(max_length = 5, choices = DECISION_CHOICES,default = NOT_DECIDED_YET)
+	decision = models.BooleanField(default = False)
 
 
 	def __str__(self):

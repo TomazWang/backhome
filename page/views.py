@@ -5,9 +5,10 @@ from page.models import Member
 from page.models import Group
 from page.models import Decision
 
+from page import dao
+
 import datetime
 
-# Create your views here.
 
 
 
@@ -16,35 +17,51 @@ def select_page(request):
 	# 1. check if login
 	# check POST data
 
-	post_data = request.GET
-	member_id = post_data.get('usr_id',str(0))
-	key = post_data.get('key','0')
+	member_id = 0
+	key = ""
+
+	if request.method == 'GET':
+		post_data = request.GET
+		member_id = post_data.get('m_id',0)
+		key = post_data.get('key','0')
+
+	else :
+		member_id = request.session.get('member_id',0)
+		key = request.session.get('key',"")
 
 	# page = render(request,'select_page.html')
 	page = render(request,'login_page.html')
+	# output = ""
 
+	# if True:
 	if key == "6oHOME0NO7k3yFORpr12e" :
 
 		# 2. pull out member data
-		member_list = Member.objects.filter(id = member_id)
+		member = dao.select_member(id=member_id).first()
+		# member_list = Member.objects.filter(id = member_id)
 
-		if len(member_list) > 0 :
-			# get a member
-			member = member_list[0]
+		if member:
+
+			request.session['member_id'] = int(member.id)
+			request.session['key'] = str(key)
 
 			# 3. render into page
 			page = render(
 					request ,
 					'select_page.html',
-					{	
+					{
 						'member':member,
-					}	
+						'session':request.session['member_id'],
+					}
 						)
+
+			# output += member.name
 
 
 	else :
 		pass
 	return page
+	# return HttpResponse(output)
 
 
 
@@ -75,17 +92,17 @@ def see_all(request):
 			else :
 				members.append((m,"NDY"))
 
-			
+
 			# output += str(decisions)
-		if len(members_yes) > 0 : 
+		if len(members_yes) > 0 :
 			members_yes.extend(members)
 			members = members_yes
 		if len(members_no) > 0 :
 			members.extend(members_no)
 
 		groups.append((group.name,members))
-	
-	# test output 
+
+	# test output
 	# page = HttpResponse(groups)
 	page = render(request,'see_all.html',{'groups':groups})
 
@@ -96,19 +113,3 @@ def see_all(request):
 
 
 
-# select member by name key words or id
-def select_member(**kwargs):
-
-	# kwargs : name, id
-	if kwargs is not None :
-
-		member_list = []
-		for name,value in kwargs.items():
-
-			if name == 'id':
-				member_list = Member.objects.filter(id = value)
-				return member_list
-
-			elif name == 'name':
-				member_list = Member.objects.filter(name__contains = value)
-				return member_list
