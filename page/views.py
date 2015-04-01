@@ -85,12 +85,12 @@ def see_all(request):
 			decisions = Decision.objects.filter(member=m,create_at__range=(thisMonday,nextMonday))
 			decision = decisions.last()
 			if decision :
-				if decision.decision == "YES":
-					members_yes.append((m,decision.decision))
-				elif decision.decision == "NO":
-					members_no.append((m,decision.decision))
+				if decision.decision == True:
+					members_yes.append((m,"YES"))
+				elif decision.decision == False:
+					members_no.append((m,"NO"))
 			else :
-				members.append((m,"NDY"))
+				members.append((m,""))
 
 
 			# output += str(decisions)
