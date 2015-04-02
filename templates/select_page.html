@@ -28,12 +28,22 @@
 
 		<div class="jumbotron">
 			<h1>哈囉! {{member.nickName}}</h1>
+			
+			{% if hasDecided %}
+			<p class="lead">你這禮拜已經做過決定囉!</p>
+			<div class="container">
+				<p><a id="btn_see_all" class="btn btn-lg btn-warning options" href="./see_all" role="button">看看大家 </a></p>
+				<p><a id="btn_change_deicision" class="btn btn-lg btn-info options" href="#" role="button">更改決定</a></p>
+			</div>
+			{% else %}
+
 			<p class="lead">這禮拜要回阿公阿罵家嗎?</p>
 
 			<div class="container">
 				<p><a id="btn_yes" class="btn btn-lg btn-success options" href="#" role="button">要阿當然!! </a></p>
 				<p><a id="btn_no" class="btn btn-lg btn-danger options" href="#" role="button">這禮拜不行耶</a></p>
 			</div>
+			{% endif %}
 
 			<p id="not_me_link" class="lead lead-thin"><a>這個人不是我?</a></p>
 		</div>
