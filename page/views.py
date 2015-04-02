@@ -55,13 +55,20 @@ def select_page(request):
 			request.session['member_id'] = int(member.id)
 			request.session['key'] = str(key)
 
+			# check if this member has made decision this week
+			decision = dao.select_decisions(member = member,this_week = True,get_last = True)
+
+			if decision is not None:
+
+
+
 			# 3. render into page
 			page = render(
 					request ,
 					'select_page.html',
 					{
 						'member':member,
-						'session':request.session['member_id'],
+						'hasDecide': hasDecide,
 					}
 						)
 
