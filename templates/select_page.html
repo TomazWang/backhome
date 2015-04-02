@@ -31,9 +31,14 @@
 			
 			{% if hasDecided %}
 			<p class="lead">你這禮拜已經做過決定囉!</p>
+				
 			<div class="container">
-				<p><a id="btn_see_all" class="btn btn-lg btn-warning options" href="./see_all" role="button">看看大家 </a></p>
-				<p><a id="btn_change_deicision" class="btn btn-lg btn-info options" href="#" role="button">更改決定</a></p>
+				{% if decision == 'YES' or decision == 'Yes' %}
+				<p><a id="btn_change_to_no" class="btn btn-lg btn-danger options" href="#" role="button">我不能回去了</a></p>
+				{% elif decision == 'NO' or decision == 'No' %}
+				<p><a id="btn_yes" class="btn btn-lg btn-success options" href="#" role="button">我會回去喔 </a></p>
+				{% endif %}
+				<p><a id="btn_see_all" class="btn btn-lg btn-info options" href="./see_all" role="button">看看大家 </a></p>
 			</div>
 			{% else %}
 

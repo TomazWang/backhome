@@ -34,10 +34,17 @@ class Decision(models.Model):
 
 	member = models.ForeignKey('Member',related_name='decisions')
 	create_at = models.DateTimeField(auto_now_add = True)
-	decision = models.BooleanField(default = False)
+
+	DECISION_CHOICES = (
+		(0,'No'),
+		(1,'Yes'),
+		(2,'Later')
+	)
+
+	decision = models.IntegerField(default = 0, choices = DECISION_CHOICES)
 
 
 	def __str__(self):
-		return str(self.member.name) + ": "+str(self.decision)+" @"+str(self.create_at.date())
+		return str(self.member.name) + ": "+str(self.get_decision_display())+" @"+str(self.create_at.date())
 
 

@@ -3,11 +3,11 @@
 $(document).ready(function(){
 
 	$('a#btn_yes').click(function(){
-		passData(true)
+		passData(1)
 	});
 
 	$('a#btn_no').click(function(){
-		passData(false)
+		passData(0)
 	});
 
 	function passData(data){

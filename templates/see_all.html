@@ -37,9 +37,9 @@
 					</tr>-->
 					{% for member,decision in group %}
 
-					{% if decision == "YES" %}
+					{% if decision == "YES" or decision == 'Yes' %}
 					<tr class="success">
-					{% elif decision == "NO" %}
+					{% elif decision == "NO" or decision == 'No' %}
 					<tr class="danger">
 					{% else %}
 					<tr>

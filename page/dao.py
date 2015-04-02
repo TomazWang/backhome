@@ -35,12 +35,17 @@ def select_member(**kwargs):
 def makeNickName(member):
 
 	name = member.name
+	nickName = member.nickName
+
+	if nickName != name and nickName != "家人":
+		return True
+		
 	nickName = name[1:]
 	print(nickName)
 	member.nickName = nickName
 	member.save()
 
-	return True;
+	return True
 
 
 def select_decisions(**kwargs):
