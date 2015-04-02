@@ -9,7 +9,10 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'page.views.select_page'),
     url(r'^ajax/decision', 'page.ajax.make_decision'),
-    # url(r'^ajax/select_member', 'page.dao.select_member'),
+    url(r'^ajax/search_member','page.ajax.search_member'),
+    url(r'^ajax/login','page.ajax.login'),
     url(r'^see_all$','page.views.see_all'),
-    url(r'^clear_cookie','page.ajax.clear_cookie')
+    url(r'^clear_cookie','page.ajax.clear_cookie'),
+
+
 )

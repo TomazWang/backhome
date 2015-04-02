@@ -10,6 +10,9 @@ from page.models import Decision
 
 from page import dao
 
+import json
+
+KEY_ANS = "AAAAA55555"
 
 def make_decision(request):
 
@@ -55,4 +58,74 @@ def check_key(request):
 		if get_data.get('key',False): 	
 			key = get_data.get('key',False)
 
-	return key
+	return key == KEY_ANS
+
+
+
+def search_member(request):
+
+	'''
+	search member by name(key words)
+	return a set of json
+	'''
+	to_json=[]
+
+	if 'member_name' in request.GET:
+		member_name = request.GET.get('member_name',"")
+		members = dao.select_member(name=member_name)
+		if members:
+			for member in members:
+				mDict = {}
+				mDict['name'] = member.name
+				# mDict['id'] = member.id
+				to_json.append(mDict)
+
+	response = json.dumps(to_json)
+
+	return HttpResponse(response,content_type='application/json')
+
+
+
+def login(request):
+
+	to_json=[]
+	member = False
+	key = False
+
+	if 'member_name' in request.GET:
+		member_name = request.GET.get('member_name',False)
+				
+		if member_name : 
+			members = Member.objects.filter(name=member_name)
+			if members : 
+				member = members[0]
+	
+
+	jDict = {}
+	jDict['status'] = 'none'
+
+	if 'key' in request.GET:
+		key = request.GET.get('key',False)
+
+	if  (key==KEY_ANS) and member:
+		jDict['member_name'] = str(member.name)
+		jDict['member_id'] = int(member.id)
+		jDict['key'] = key
+		jDict['status'] = 'success'
+
+	elif (key==KEY_ANS) and (not member):
+		jDict['status'] = 'member_wrong'
+
+	elif (key!=KEY_ANS) and member:
+		jDict['status'] = 'key_wrong'
+
+	else : 
+		jDict['status'] = 'error'
+
+	to_json.append(jDict)
+	response = json.dumps(to_json)
+	return HttpResponse(response,content_type='application/json')
+
+
+
+

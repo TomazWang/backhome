@@ -15,6 +15,10 @@ import datetime
 
 def select_page(request):
 
+	'''
+	m_id = member_id & key = key
+	'''
+
 	# response = render(request,'select_page.html')
 	response = render(request,'login_page.html')
 	# output = ""

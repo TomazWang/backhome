@@ -1,0 +1,13 @@
+/* login_style.css */
+
+#login_form ,#search_result_block{
+	display: none;
+}
+
+.resultItemClick{
+	cursor: pointer;
+}
+
+#warning-text{
+	color : red;
+}
