@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
 from django.http import HttpResponse
 
 from page.models import Member
@@ -6,8 +7,10 @@ from page.models import Group
 from page.models import Decision
 
 from page import dao
+from page import ajax
 
 import datetime
+
 
 
 def select_page(request):
@@ -19,37 +22,28 @@ def select_page(request):
 	# 1. check if login
 
 	member_id = False
-	key = False
 
 	# check member_id and login
 	if request.method == 'GET':
 		get_data = request.GET
 		if get_data.get('m_id',False):
 			member_id = get_data.get('m_id',0)
-		if get_data.get('key',False): 	
-			key = get_data.get('key','0')
 
 	if 'member_id' in request.COOKIES and (not member_id):
 		member_id = request.COOKIES['member_id']
 		# output += str("<p>request.COOKIES['member_id'] = " + str(request.COOKIES['member_id']) + "</p>")
 
-	if 'key' in request.COOKIES and (not key):
-		key = request.COOKIES['key']
-		# output += str("request.COOKIES['key'] = " + str(request.COOKIES['key']) + "</p>")
-
 	if request.session.get('member_id',False) and (not member_id):
 		member_id = request.session.get('member_id',0)
 		# output += str("request.session.get('member_id',0) = " + str(request.session.get('member_id',0))+ "</p>")
 
-	if request.session.get('key',False) and (not key):
-		key = request.session.get('key',"")
-		# output += str("request.session.get('key',"") = " + str(request.session.get('key',"")) + "</p>")
-
 
 
 	
-	# if True:
-	if key == "6oHOME0NO7k3yFORpr12e" :
+	if ajax.check_key(request) :
+
+		request.session['key'] = str(ajax.check_key(request))
+		response.set_cookie('key',ajax.check_key(request))
 
 		# 2. pull out member data
 		member = dao.select_member(id=member_id).first()
@@ -58,7 +52,6 @@ def select_page(request):
 		if member:
 
 			request.session['member_id'] = int(member.id)
-			request.session['key'] = str(key)
 
 			# check if this member has made decision this week
 			decision = dao.select_decisions(member = member,this_week = True,get_last = True)
@@ -81,13 +74,11 @@ def select_page(request):
 						)
 
 			response.set_cookie('member_id',member_id)
-			response.set_cookie('key',key)
 
 			# output += member.name
-
-
 	else :
 		pass
+
 	return response
 	# return HttpResponse(output)
 
@@ -95,7 +86,8 @@ def select_page(request):
 
 def see_all(request):
 
-
+	if not ajax.check_key(request):
+		return redirect('/')
 	# output = ""
 	groups = []
 

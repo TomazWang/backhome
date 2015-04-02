@@ -1,5 +1,6 @@
 # page/ajax.py
 from django.shortcuts import render
+from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.http import Http404
 
@@ -26,3 +27,32 @@ def make_decision(request):
 			return HttpResponse("Decision compelete")
 	raise Http404('member not longin')
 
+def clear_cookie(request):
+	
+	request.session.clear()
+	
+	response = redirect('/')
+	
+	response.delete_cookie('key')
+	response.delete_cookie('member_id')
+
+	return response
+
+
+def check_key(request):
+
+	key = False
+
+
+	if 'key' in request.COOKIES and (not key):
+		key = request.COOKIES['key']
+
+	if request.session.get('key',False) and (not key):
+		key = request.session.get('key',False)
+
+	if request.method == 'GET':
+		get_data = request.GET
+		if get_data.get('key',False): 	
+			key = get_data.get('key',False)
+
+	return key
