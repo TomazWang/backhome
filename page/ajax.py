@@ -46,7 +46,6 @@ def check_key(request):
 
 	key = False
 
-
 	if 'key' in request.COOKIES and (not key):
 		key = request.COOKIES['key']
 
@@ -58,7 +57,9 @@ def check_key(request):
 		if get_data.get('key',False): 	
 			key = get_data.get('key',False)
 
-	return key == KEY_ANS
+	if key != KEY_ANS:
+		key == False
+	return key
 
 
 

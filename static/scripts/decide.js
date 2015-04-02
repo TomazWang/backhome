@@ -3,11 +3,20 @@
 $(document).ready(function(){
 
 	$('a#btn_yes').click(function(){
-		passData(1)
+		passData(1);
 	});
 
 	$('a#btn_no').click(function(){
-		passData(0)
+		passData(0);
+	});
+
+	$('a#btn_change_to_yes').click(function(){
+		passData(1);
+	});
+
+
+	$('a#btn_change_to_no').click(function(){
+		passData(0);
 	});
 
 	function passData(data){

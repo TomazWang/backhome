@@ -47,7 +47,6 @@ def select_page(request):
 	if ajax.check_key(request) :
 
 		request.session['key'] = str(ajax.check_key(request))
-		response.set_cookie('key',ajax.check_key(request))
 
 		# 2. pull out member data
 		member = dao.select_member(id=member_id).first()
@@ -79,6 +78,7 @@ def select_page(request):
 
 			response.set_cookie('member_id',member_id)
 
+		response.set_cookie('key',ajax.check_key(request))
 			# output += member.name
 	else :
 		pass
@@ -91,7 +91,8 @@ def select_page(request):
 def see_all(request):
 
 	if not ajax.check_key(request):
-		return redirect('/')
+		return redirect('./')
+
 	# output = ""
 	groups = []
 
