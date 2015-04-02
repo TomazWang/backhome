@@ -14,25 +14,35 @@ import datetime
 
 def select_page(request):
 
-	# 1. check if login
-	# check POST data
-
-	member_id = 0
-	key = ""
-
-	if request.method == 'GET':
-		post_data = request.GET
-		member_id = post_data.get('m_id',0)
-		key = post_data.get('key','0')
-
-	else :
-		member_id = request.session.get('member_id',0)
-		key = request.session.get('key',"")
-
 	# page = render(request,'select_page.html')
 	page = render(request,'login_page.html')
 	# output = ""
 
+	# 1. check if login
+
+	member_id = 0
+	key = ""
+
+	# check member_id and login
+	if request.method == 'GET':
+		get_data = request.GET
+		if get_data.get('m_id',False):
+			member_id = get_data.get('m_id',0)
+		if get_data.get('key',False): 	
+			key = get_data.get('key','0')
+	else :
+		return page
+
+	if request.session.get('member_id',False):
+		member_id = request.session.get('member_id',0)
+
+	if request.session.get('key',False):
+		key = request.session.get('key',"")
+
+
+
+
+	
 	# if True:
 	if key == "6oHOME0NO7k3yFORpr12e" :
 
@@ -78,13 +88,14 @@ def see_all(request):
 
 		for m in Member.objects.filter(group = group):
 
-			today = datetime.date.today()
-			thisMonday = today - datetime.timedelta(days=-today.weekday(), weeks=1)
-			nextMonday = today + datetime.timedelta(days=-today.weekday(), weeks=1)
 
-			decisions = Decision.objects.filter(member=m,create_at__range=(thisMonday,nextMonday))
-			decision = decisions.last()
-			if decision :
+			decision = dao.select_decisions(
+					member = m,
+					this_week = True,
+					get_last = True
+					)
+
+			if decision is not None :
 				if decision.decision == True:
 					members_yes.append((m,"YES"))
 				elif decision.decision == False:
