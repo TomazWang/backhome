@@ -58,8 +58,10 @@ def select_page(request):
 			# check if this member has made decision this week
 			decision = dao.select_decisions(member = member,this_week = True,get_last = True)
 
+			hasDecide = False
+			
 			if decision is not None:
-
+				hasDecide = True
 
 
 			# 3. render into page
@@ -69,6 +71,7 @@ def select_page(request):
 					{
 						'member':member,
 						'hasDecide': hasDecide,
+						'decision' : decision.decision
 					}
 						)
 
