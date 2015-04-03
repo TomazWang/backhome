@@ -20,11 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = '!%7h=%*t+pk7lkf194+qy@5(n0ih0@awr+_qg6^vcm@*%a(vw)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-TEMPLATE_DEBUG = True
+# Turn off DEBUG mode
+DEBUG = False
+TEMPLATE_DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '127.0.0.1:8000']
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -91,4 +92,23 @@ STATICFILES_DIRS = (
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR,'templates').replace('\\','/'),
 )
+
+
+# Parse database configuration from $DATABASE_URL
+import dj_database_url
+DATABASES = {
+    'default': dj_database_url.config()
+}
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Static asset configuration
+STATIC_ROOT = 'staticfiles'
+
+# Import all of local settings if the file exists
+try:
+    from .local_settings import *
+except ImportError:
+    pass
 
