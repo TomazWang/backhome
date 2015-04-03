@@ -1,0 +1,30 @@
+/* signin_style.css */
+
+
+.resultItemClick{
+	cursor: pointer;
+}
+
+#warning-text{
+	color : red;
+}
+
+
+#btn_show_add_group{
+	padding: 6px 12px;
+	font-size: 14px;
+}
+
+#btn_show_select_group{
+	padding: 6px 12px;
+	font-size: 14px;
+}
+
+
+.col-no-left-padding{
+	padding-left: 0;
+}
+
+#add_group_input_block{
+	display:none;
+}

@@ -19,6 +19,11 @@ $(document).ready(function(){
 		passData(0);
 	});
 
+	$('a#btn_change').click(function(){
+		$('a#btn_change').hide();
+		$('#change_decision_block').show();
+	});
+
 	function passData(data){
 		$.ajax({
 			url:"ajax/decision",

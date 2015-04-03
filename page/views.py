@@ -138,5 +138,6 @@ def see_all(request):
 
 
 
-
+def signin(request):
+	return render(request,'sign_in_page.html')
 

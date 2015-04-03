@@ -37,7 +37,7 @@ def makeNickName(member):
 	name = member.name
 	nickName = member.nickName
 
-	if nickName != name and nickName != "家人":
+	if nickName != name and nickName != "家人" and nickName != "":
 		return True
 		
 	nickName = name[1:]
@@ -94,4 +94,5 @@ def select_decisions(**kwargs):
 			return None # no member select
 
 		# decisions = Decision.objects.filter(member=m,create_at__range=(thisMonday,nextMonday))
+
 

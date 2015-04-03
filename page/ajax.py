@@ -86,6 +86,21 @@ def search_member(request):
 	return HttpResponse(response,content_type='application/json')
 
 
+def get_all_group(request):
+
+	to_json = []
+
+	groups = Group.objects.all();
+
+	for group in groups:
+		gDic = {}
+		gDic['gName'] = group.name
+		gDic['gID'] = group.id
+		to_json.append(gDic)
+
+	response =json.dumps(to_json)
+
+	return HttpResponse(response,content_type='application/json')
 
 def login(request):
 
@@ -126,6 +141,101 @@ def login(request):
 	to_json.append(jDict)
 	response = json.dumps(to_json)
 	return HttpResponse(response,content_type='application/json')
+
+
+
+
+def new_group(request):
+
+	to_json = []
+
+	if 'new_group_name' in request.GET:
+		
+		new_group_name = request.GET.get('new_group_name',False)
+		
+		if new_group_name :
+
+			query = Group.objects.create(name=new_group_name)
+			query.save()
+
+			if query:
+
+				gDic={
+					'group_name' : query.name,
+					'group_id' : query.id,
+					'status' : 'success',
+				}
+				to_json.append(gDic)
+				
+			else:
+				to_json.append(
+					{'status':'query error'}
+				)
+
+		else :
+			to_json.append(
+				{ 'status' : 'can not get new group name'}
+			)
+	else :
+		to_json.append(
+			{ 'status' : 'can not get GET data'}
+		)
+
+	response = json.dumps(to_json)
+	return HttpResponse(response,content_type='application/json')
+
+
+
+def new_member(request):
+
+	to_json = []
+
+	if ('new_member_name' in request.GET) and ('group_id' in request.GET):
+		
+		new_member_name = request.GET.get('new_member_name',False)
+		group_id = request.GET.get('group_id',False)
+
+		if new_member_name and group_id:
+
+			get_group = Group.objects.filter(id = group_id)
+
+			if get_group : 
+
+				query = Member.objects.create(
+						name=new_member_name,
+						group = get_group[0]
+						)
+				query.save()
+
+				if query:
+					mDic={
+						'member_name' : query.name,
+						'member_id' : query.id,
+						'status' : 'success',
+					}
+					to_json.append(mDic)
+					
+				else:
+					to_json.append(
+						{'status':'query error'}
+					)
+			else :
+				to_json.append(
+						{'status':('can not find group with id = '+str(group_id))}
+					)
+
+		else :
+			to_json.append(
+				{ 'status' : 'can not get new member name or group id'}
+			)
+	else :
+		to_json.append(
+			{ 'status' : 'can not get GET data'}
+		)
+
+	response = json.dumps(to_json)
+	return HttpResponse(response,content_type='application/json')
+
 
 
 

@@ -74,6 +74,12 @@ body {
    font-size: 120%;
 }
 
+/*
+#change_decision_block{
+  display: none;
+}
+*/
+
 
 /* Customize container */
 @media (min-width: 768px) {

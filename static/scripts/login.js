@@ -19,7 +19,7 @@ $(document).ready(function (){
 
 			$.ajax({
 				url:'ajax/login',
-				typr:'GET',
+				type:'GET',
 				data:{
 					member_name:$('#input_name').val(),
 					key : $('#input_pass').val()
@@ -77,6 +77,12 @@ $(document).ready(function (){
 			$('#search_result_block').hide();
 		});
 
+
+
+		$('#cant_find_me').click(function(){
+			
+		});
+
 	}
 
 	function search_member(){
@@ -107,7 +113,7 @@ $(document).ready(function (){
 						search_result.append(html);
 					}
 
-					html = "<a id='cant_find_me' class='list-group-item'>找不到我</a>";
+					html = "<a id='cant_find_me' class='list-group-item'>找不到我?</a>";
 					search_result.append(html);
 					resultItemClick();
 				},

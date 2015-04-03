@@ -2,5 +2,13 @@
 .c9/project.settings
 
 # Byte-compiled / optimized / DLL files
+
 __pycache__/
+__pycache__
 *.py[cod]
+*.pyc
+
+
+staticfiles
+local_settings.py
+db.sqlite3
