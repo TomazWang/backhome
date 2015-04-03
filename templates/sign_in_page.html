@@ -1,0 +1,97 @@
+<!-- sign_in_page.html -->
+<!DOCTYPE html>
+<head>
+	<title>Back Home or NOT </title>
+	<meta charset='utf-8'>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- import jQuery -->
+	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+
+	<!-- imort boostrap -->
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+	<!-- custom style -->
+	<link rel="stylesheet" href="{{STATIC_URL}}styles/select_page_style.css">
+	<link rel="stylesheet" href="{{STATIC_URL}}styles/signin_style.css">
+
+</head>
+
+
+<body>
+
+	<div class="container">
+
+		{% include "includes/general_header.html" %}
+
+		<div class="jumbotron">
+			<h1>加入家族</h1>
+			<div class="container" id="login_form">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<div class="row">
+							<label for="input_name" class="col-sm-2  col-sm-offset-2 control-label">名字</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" id="input_name" placeholder="輸入名稱">
+								<input type="hidden" id="member_id" value="">
+							</div>
+							<div class="col-sm-2"></div>
+						</div>
+					</div>
+					<div class="form-group" id="group_select_block">
+						<div class="row">
+							<label for="input_group" class="col-sm-2 col-sm-offset-2 control-label">家庭</label>
+							<div class="col-sm-6">
+								<select id="input_group" class="form-control input">
+									<option value="0">選擇隸屬家庭...</option>
+								</select>
+							</div>
+							<!--<div class="col-sm-1 col-no-left-padding">
+								<a class="btn btn-default" role="button" id="btn_show_add_group">+</a>
+							</div>-->
+							<div class="col-sm-2"></div>
+						</div>
+					</div>
+					<!--
+					<div class="form-group" id="add_group_input_block">
+						<div class="row">
+							<label for="input_group" class="col-sm-2 col-sm-offset-2 control-label">家庭</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" id="input_group" placeholder="ex. 美惠家">
+							</div>
+							<div class="col-sm-1 col-no-left-padding">
+								<a class="btn btn-danger" role="button" id="btn_show_select_group">x</a>
+							</div>
+							<div class="col-sm-2"></div>
+						</div>
+					</div>-->
+
+					<div class="form-group">
+						<div class="row">
+							<label for="input_pass" class="col-sm-2 col-sm-offset-2 control-label">密碼</label>
+							<div class="col-sm-6">
+								<input type="password" class="form-control" id="input_pass" placeholder="中和一樓的wifi密碼">
+							</div>
+							<div class="col-sm-2"></div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="list-group  col-sm-4 col-sm-offset-6">
+							<a id="signin_link" class="list-group-item active">加入家族</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+
+		<footer class="footer">
+			<p>&copy; TomScope 2015</p>
+		</footer>
+
+	</div> <!-- /container -->
+	<script src="{{STATIC_URL}}scripts/login.js"></script>
+	<script src="{{STATIC_URL}}scripts/signin.js"></script>
+</body>

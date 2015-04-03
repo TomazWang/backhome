@@ -30,14 +30,24 @@
 			<h1>哈囉! {{member.nickName}}</h1>
 			
 			{% if hasDecided %}
-			<p class="lead">你這禮拜已經做過決定囉!</p>
-				
-			<div class="container">
+			<p class="lead">你這禮拜已經做過決定囉! 
 				{% if decision == 'YES' or decision == 'Yes' %}
-				<p><a id="btn_change_to_no" class="btn btn-lg btn-danger options" href="#" role="button">我不能回去了</a></p>
+				 (<span style="color:green;">你要回去</span>)
 				{% elif decision == 'NO' or decision == 'No' %}
-				<p><a id="btn_change_to_yes" class="btn btn-lg btn-success options" href="#" role="button">我會回去喔 </a></p>
-				{% endif %}
+				 (<span style="color:red;">你沒有要回去</span>)
+				{% endif %}	
+
+			</p>
+
+			<div class="container">
+				<!--<p><a id="btn_change" class="btn btn-lg btn-primary options" role="button">更改決定 </a></p>-->
+				<div id="change_decision_block">
+					{% if decision == 'YES' or decision == 'Yes' %}
+					<p><a id="btn_change_to_no" class="btn btn-lg btn-danger options" href="#" role="button">我不能回去了</a></p>
+					{% elif decision == 'NO' or decision == 'No' %}
+					<p><a id="btn_change_to_yes" class="btn btn-lg btn-success options" href="#" role="button">我能回去喔 </a></p>
+					{% endif %}
+				</div>
 				<p><a id="btn_see_all" class="btn btn-lg btn-info options" href="./see_all" role="button">看看大家 </a></p>
 			</div>
 			{% else %}

@@ -46,9 +46,9 @@
 					{% endif %}
 						<td>{{ member.nickName }}</td>
 						<td>
-							{% if decision == "YES" %}
+							{% if decision == "YES" or decision == 'Yes' %}
 							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-							{% elif decision == "NO" %}
+							{% elif decision == "NO" or decision == 'No' %}
 							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 							{% else %}
 							<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
