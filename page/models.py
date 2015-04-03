@@ -41,7 +41,7 @@ class Decision(models.Model):
 		(2,'Later')
 	)
 
-	decision = models.IntegerField(default = 0, choices = DECISION_CHOICES)
+	# decision = models.IntegerField(default = 0, choices = DECISION_CHOICES)
 	d = models.IntegerField(default = 0, choices = DECISION_CHOICES)
 
 
